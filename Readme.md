@@ -49,3 +49,6 @@ Uses gunicorn + Redis.
     ```
 
     Test it out at [http://localhost:8003](http://localhost:8003).
+
+cp nginx.conf /etc/nginx/sites-available/chatlegal.c4all.org
+ln -s /etc/nginx/sites-available/chatlegal.c4all.org /etc/nginx/sites-enabled/
