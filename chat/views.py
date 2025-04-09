@@ -17,7 +17,7 @@ console = Console()
 if settings.DEBUG:
     DOMAIN = 'http://localhost:8000'
 else:
-    DOMAIN = os.getenv('DOMAIN', default='http://localhost:8000', cast=str)
+    DOMAIN = os.getenv('DOMAIN')
 
 API_URL = f"{DOMAIN}/rag_legal/api/v1/legal/"
 
