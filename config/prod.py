@@ -2,7 +2,7 @@
 from .base import *
 import os
 
-DEBUG = False
+DEBUG = os.getenv('DJANGO_DEBUG', default=False)
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', default='').split(',')
 
