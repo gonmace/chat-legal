@@ -1,48 +1,46 @@
 # docker-compose.yml
 services:
-  pozos-db:
+  chat-legal-db:
     image: postgres:15-alpine  
-    container_name: postgres_db
+    container_name: chat_legal_db
     ports:
-      - "5435:5432"
+      - "5433:5432"
     env_file:
       - .env  
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
-      - pozos_network
+      - chat_legal_network
 
-  pozos-redis:
+  chat-legal-redis:
     image: redis:alpine
-    container_name: redis_cache
+    container_name: chat_legal_redis
     ports:
-      - "6381:6379"
+      - "6380:6379"
     networks:
-      - pozos_network
+      - chat_legal_network
 
-  pozos-dj:
+  chat-legal-django:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: django_app
+    container_name: chat_legal_django
     command: ./entrypoint.sh
     volumes:
       - ./staticfiles:/app/staticfiles  
       - ./media:/app/media    
     ports:
-      - "8003:8000"  
+      - "8001:8000"  
     env_file:
       - .env  
     depends_on:
-      - postgres
-      - redis
+      - chat-legal-db
+      - chat-legal-redis
     networks:
-      - pozos_network
+      - chat_legal_network
 
 volumes:
   postgres_data:
-  staticfiles:
-  media:
 
 networks:
-  pozos_network:
+  chat_legal_network:
