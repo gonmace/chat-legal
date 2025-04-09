@@ -15,13 +15,15 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path("logout/", LogoutView.as_view(), name="logout"),
 ]
-print("==========================")
-print(settings.DEBUG)
-print("==========================")
+
 if settings.DEBUG:
-    urlpatterns += [
-        path("__reload__/", include("django_browser_reload.urls", namespace="django_browser_reload")),
-    ]
+    try:
+        urlpatterns += [
+            path("__reload__/", include("django_browser_reload.urls", namespace="django_browser_reload")),
+        ]
+    except ImportError:
+        print("⚠️ django_browser_reload no está instalado. Saltando integración.")
+    
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(
         settings.STATIC_URL, document_root=settings.STATIC_ROOT
